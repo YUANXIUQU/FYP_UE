@@ -1,0 +1,18 @@
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+*.sln
+*.suo
+
+# Unreal
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Rider
+.idea/
+
+# Mac
+.DS_Store

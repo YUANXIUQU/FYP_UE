@@ -10,5 +10,33 @@ float UUtilityFunctionLibrary::CalculateAttackUtility(float DistanceToPlayer, fl
 
 float UUtilityFunctionLibrary::CalculateHidingUtility(float DistanceToPlayer, float DistanceToVIP)
 {
-	return DistanceToPlayer;
+	return DistanceToPlayer/10000.0f;
+}
+
+
+float UUtilityFunctionLibrary::CalculateRetreatUtility(float DistanceToPlayer, float DistanceToVIP)
+{
+	return 0.0f;
+}
+
+float UUtilityFunctionLibrary::CalculateChasingUtility(float DistanceToPlayer, float DistanceToVIP)
+{
+	return 0.0f;
+}
+
+float UUtilityFunctionLibrary::CalculateBlockingExitUtility(float DistanceToPlayer, float DistanceToVIP)
+{
+	return 0.0f;
+}
+
+
+float UUtilityFunctionLibrary::CalculateFollowingVIPUtility(float DistanceToPlayer, float DistanceToVIP)
+{
+	return 0.0f;
+}
+
+
+float UUtilityFunctionLibrary::CalculateRandomSearchUtility(float DistanceToPlayer, float DistanceToVIP)
+{
+	return 0.0f;
 }

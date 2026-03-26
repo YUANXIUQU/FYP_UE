@@ -14,9 +14,28 @@ class BT_GAME_API UUtilityFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
+
+	//Attack Mode
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateAttackUtility(float DistanceToPlayer,float DistanceToVIP, int32 ThreatLevel);
+	static float CalculateAttackUtility(float DistanceToPlayer, float Health, float seePlayer);
+
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateHidingUtility(float DistanceToPlayer, float DistanceToVIP);
-	
+	static float CalculateHidingUtility(float DistanceToPlayer, float Health,float seePlayer);
+
+	UFUNCTION(BlueprintPure, Category = "AI|Utility")
+	static float CalculateRetreatUtility(float DistanceToPlayer, float Health, float seePlayer);
+
+	UFUNCTION(BlueprintPure, Category = "AI|Utility")
+	static float CalculateChasingUtility(float DistanceToPlayer, float seePlayer,float );
+
+	UFUNCTION(BlueprintPure, Category = "AI|Utility")
+	static float CalculateBlockingExitUtility(float DistanceToPlayer, float DistanceToVIP);
+
+	UFUNCTION(BlueprintPure, Category = "AI|Utility")
+	static float CalculateFollowingVIPUtility(float DistanceToPlayer, float DistanceToVIP);
+
+	UFUNCTION(BlueprintPure, Category = "AI|Utility")
+	static float CalculateRandomSearchUtility(float DistanceToPlayer, float DistanceToVIP);
+
+
 };

@@ -9,6 +9,30 @@
 /**
  * 
  */
+
+UENUM(BlueprintType)
+enum class EAction : uint8
+{
+	Attack,
+	Hiding,
+	Retreating,
+	Chasing,
+	BlockingExit,
+	RandomSearching
+};
+
+USTRUCT(BlueprintType)
+struct FActionScore
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadWrite)
+	EAction Action;
+
+	UPROPERTY(BlueprintReadWrite)
+	float Score;
+
+};
+
 UCLASS()
 class BT_GAME_API UUtilityFunctionLibrary : public UBlueprintFunctionLibrary
 {
@@ -26,16 +50,19 @@ public:
 	static float CalculateRetreatUtility(float DistanceToPlayer, float Health, float seePlayer);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateChasingUtility(float DistanceToPlayer, float seePlayer,float );
+	static float CalculateChasingUtility(float DistanceToPlayer, float seePlayer);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateBlockingExitUtility(float DistanceToPlayer, float DistanceToVIP);
+	static float CalculateBlockingExitUtility(float DistanceToExit, float DistanceToPlayer);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateFollowingVIPUtility(float DistanceToPlayer, float DistanceToVIP);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateRandomSearchUtility(float DistanceToPlayer, float DistanceToVIP);
+	static float CalculateRandomSearchUtility(float seePlayer);
+
+	UFUNCTION(BlueprintPure, Category = "AI|UtilitySelector")
+	static EAction SelectAction(const TArray<FActionScore>& score);
 
 
 };

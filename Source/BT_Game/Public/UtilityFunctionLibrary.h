@@ -39,9 +39,12 @@ class BT_GAME_API UUtilityFunctionLibrary : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 public:
 
+	UFUNCTION(BlueprintCallable, Category = "Utility")
+	static float EvaluateConsideration(float NormalizedValue, UCurveFloat* Curve);
+
 	//Attack Mode
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateAttackUtility(float DistanceToPlayer, float Health, float seePlayer);
+	static float CalculateAttackUtility(float DistanceToPlayer, float Health, float seePlayer, UCurveFloat* DistanceCurve);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateHidingUtility(float DistanceToPlayer, float Health,float seePlayer);
@@ -50,16 +53,16 @@ public:
 	static float CalculateRetreatUtility(float DistanceToPlayer, float Health, float seePlayer);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateChasingUtility(float DistanceToPlayer, float seePlayer);
+	static float CalculateChasingUtility(float Health, float seePlayer,float TimeSinceSeenPlayer);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateBlockingExitUtility(float DistanceToExit, float DistanceToPlayer);
+	static float CalculateBlockingExitUtility(float DistanceToExit, float PlayerDistanceToExit);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateFollowingVIPUtility(float DistanceToPlayer, float DistanceToVIP);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateRandomSearchUtility(float seePlayer);
+	static float CalculateRandomSearchUtility(float seePlayer,float TimeSinceSeenPlayer);
 
 	UFUNCTION(BlueprintPure, Category = "AI|UtilitySelector")
 	static EAction SelectAction(const TArray<FActionScore>& score);

@@ -21,25 +21,25 @@ float UUtilityFunctionLibrary::CalculateAttackUtility(float DistanceToPlayer, fl
 
 	float DistanceScore = EvaluateConsideration(NormalizedDistance, DistanceCurve);
 
-	if (seePlayer <= 0.0f)
+	/*if (seePlayer <= 0.0f)
 	{
 		return 0.0f;
-	}
+	}*/
 	float Score =
-		DistanceScore * 0.5f +
-		HealthScore * 0.3f +
+		DistanceScore * 0.6f +
+		HealthScore * 0.2f +
 		SeeScore * 0.2f;
 
 	return FMath::Clamp(Score, 0.0f, 1.0f);
 }
 
-float UUtilityFunctionLibrary::CalculateHidingUtility(float DistanceToPlayer, float Health, float seePlayer)
+float UUtilityFunctionLibrary::CalculateHidingUtility(float DistanceToPlayer, float Health, float seePlayer, float TimeSinceLastDamage)
 {
 	float DistanceScore = 1.0f - FMath::Clamp(DistanceToPlayer / 10000.0f, 0.0f, 1.0f);
 	float HealthScore = 1.0f - FMath::Clamp(Health, 0.0f, 1.0f);
+	float RecentDamageScore = 1 - FMath::Clamp(TimeSinceLastDamage/3.0f, 0.0f, 1.0f);
 	float SeeScore = FMath::Clamp(seePlayer, 0.0f, 1.0f);
-
-	float Score = DistanceScore * 0.2f + HealthScore * 0.5f + SeeScore * 0.3f;
+	float Score = DistanceScore * 0.5f + SeeScore * 0.1f + HealthScore * 0.2f + RecentDamageScore * 0.2f;
 	return FMath::Clamp(Score, 0.0f, 1.0f);
 }
 
@@ -68,7 +68,7 @@ float UUtilityFunctionLibrary::CalculateBlockingExitUtility(float DistanceToExit
 {
 	float DistanceToExitScore = 1 - FMath::Clamp(DistanceToExit / 10000.0f, 0.0f, 1.0f);
 	float PlayerThreatScore = 1.0f - FMath::Clamp(PlayerDistanceToExit / 10000.0f, 0.0f, 1.0f);
-	float Score = DistanceToExitScore * 0.4f + PlayerThreatScore * 0.6f;
+	float Score = DistanceToExitScore * 0.3f + PlayerThreatScore * 0.7f;
 	return Score;
 }
 
@@ -85,23 +85,23 @@ float UUtilityFunctionLibrary::CalculateFollowingVIPUtility(float DistanceToPlay
 float UUtilityFunctionLibrary::CalculateRandomSearchUtility(float seePlayer, float TimeSinceSeenPlayer)
 {
 	float LostSightScore = 1 - FMath::Clamp(seePlayer, 0.0f, 1.0f);
-	float NotSeenPlayerScore = FMath::Clamp(TimeSinceSeenPlayer/10, 0.0f, 1.0f);
+	float NotSeenPlayerScore = FMath::Clamp(TimeSinceSeenPlayer/20, 0.0f, 1.0f);
 	float Score = NotSeenPlayerScore * 0.4f + LostSightScore * 0.6;
 	return Score;
 }
 
 EAction UUtilityFunctionLibrary::SelectAction(const TArray<FActionScore>& score)
 {
-	////Select action from 3 actions with highest score////////////////////////////
-	//TArray<FActionScore> Sorted = score;
+	//Select action from 2 actions with highest score////////////////////////////
+	TArray<FActionScore> Sorted = score;
 
-	//Sorted.Sort([](const FActionScore& A, const FActionScore& B) {return A.Score > B.Score; });
-	//int32 TopN = FMath::Min(3, Sorted.Num());
-	//int32 Index = FMath::RandRange(0, TopN - 1);
-	//return Sorted[Index].Action;
+	Sorted.Sort([](const FActionScore& A, const FActionScore& B) {return A.Score > B.Score; });
+	int32 TopN = FMath::Min(2, Sorted.Num());
+	int32 Index = FMath::RandRange(0, TopN - 1);
+	return Sorted[Index].Action;
 
 	//Select Highest Score////////////////////////////////////////////////////
-	if (score.Num() == 0)
+	/*if (score.Num() == 0)
 	{
 		return EAction::Attack;
 	}
@@ -115,8 +115,9 @@ EAction UUtilityFunctionLibrary::SelectAction(const TArray<FActionScore>& score)
 			max = it.Score;
 			best = it;
 		}
+		else if()
 	}
 
 	EAction bestAction = best.Action;
-	return bestAction;
+	return bestAction;*/
 }

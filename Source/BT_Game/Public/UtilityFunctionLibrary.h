@@ -62,10 +62,10 @@ public:
 	static float CalculateFollowingVIPUtility(float DistanceToPlayer, float DistanceToVIP);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateRandomSearchUtility(float seePlayer,float TimeSinceSeenPlayer);
+	static float CalculateRandomSearchUtility(float seePlayer,float TimeSinceSeenPlayer, float Health);
 
 	UFUNCTION(BlueprintPure, Category = "AI|UtilitySelector")
-	static EAction SelectAction(const TArray<FActionScore>& score);
+	static EAction SelectAction(const TArray<FActionScore>& score, EAction currenAction);
 
 
 };

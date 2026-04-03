@@ -21,14 +21,14 @@ float UUtilityFunctionLibrary::CalculateAttackUtility(float DistanceToPlayer, fl
 
 	float DistanceScore = EvaluateConsideration(NormalizedDistance, DistanceCurve);
 
-	/*if (seePlayer <= 0.0f)
+	if (seePlayer <= 0.0f)
 	{
 		return 0.0f;
-	}*/
+	}
 	float Score =
 		DistanceScore * 0.6f +
-		HealthScore * 0.1f +
-		SeeScore * 0.3f;
+		HealthScore * 0.2f +
+		SeeScore * 0.2f;
 
 	return FMath::Clamp(Score, 0.0f, 1.0f);
 }
@@ -43,7 +43,7 @@ float UUtilityFunctionLibrary::CalculateHidingUtility(float DistanceToPlayer, fl
 	float HealthScore = 1.0f - FMath::Clamp(Health, 0.0f, 1.0f);
 	float RecentDamageScore = 1 - FMath::Clamp(TimeSinceLastDamage/3.0f, 0.0f, 1.0f);
 	float SeeScore = FMath::Clamp(seePlayer, 0.0f, 1.0f);
-	float Score = DistanceScore * 0.5f + SeeScore * 0.1f + HealthScore * 0.2f + RecentDamageScore * 0.2f;
+	float Score = DistanceScore * 0.3f + SeeScore * 0.1f + HealthScore * 0.2f + RecentDamageScore * 0.4f;
 	return FMath::Clamp(Score, 0.0f, 1.0f);
 }
 
@@ -89,7 +89,7 @@ float UUtilityFunctionLibrary::CalculateFollowingVIPUtility(float DistanceToPlay
 float UUtilityFunctionLibrary::CalculateRandomSearchUtility(float seePlayer, float TimeSinceSeenPlayer,float Health)
 {
 	//Opt Out condition
-	if (Health < 0.3)
+	if (Health < 0.2)
 	{
 		return 0.0f;
 	}

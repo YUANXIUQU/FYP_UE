@@ -135,10 +135,10 @@ EAction UUtilityFunctionLibrary::SelectAction(const TArray<FActionScore>& score,
 	{
 		return currenAction;
 	}
-	if (best.Score > currentActionScore)
+	/*if (best.Score > currentActionScore)
 	{
 		currenAction = best.Action;
-	}
-
+	}*/
+	currenAction = best.Action;
 	return currenAction;
 }

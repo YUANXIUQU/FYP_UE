@@ -33,7 +33,7 @@ float UUtilityFunctionLibrary::CalculateAttackUtility(float DistanceToPlayer, fl
 	return FMath::Clamp(Score, 0.0f, 1.0f);
 }
 
-float UUtilityFunctionLibrary::CalculateHidingUtility(float DistanceToPlayer, float Health, float seePlayer, float TimeSinceLastDamage)
+float UUtilityFunctionLibrary::CalculateHidingUtility(float DistanceToPlayer, float Health, float TimeSinceLastDamage)
 {
 	if (DistanceToPlayer < 2000.0f)
 	{
@@ -42,8 +42,7 @@ float UUtilityFunctionLibrary::CalculateHidingUtility(float DistanceToPlayer, fl
 	float DistanceScore = 1.0f - FMath::Clamp(DistanceToPlayer / 10000.0f, 0.0f, 1.0f);
 	float HealthScore = 1.0f - FMath::Clamp(Health, 0.0f, 1.0f);
 	float RecentDamageScore = 1 - FMath::Clamp(TimeSinceLastDamage/3.0f, 0.0f, 1.0f);
-	float SeeScore = FMath::Clamp(seePlayer, 0.0f, 1.0f);
-	float Score = DistanceScore * 0.3f + SeeScore * 0.1f + HealthScore * 0.2f + RecentDamageScore * 0.4f;
+	float Score = DistanceScore * 0.3f + HealthScore * 0.2f + RecentDamageScore * 0.5f;
 	return FMath::Clamp(Score, 0.0f, 1.0f);
 }
 
@@ -70,9 +69,9 @@ float UUtilityFunctionLibrary::CalculateChasingUtility(float Health,float seePla
 
 float UUtilityFunctionLibrary::CalculateBlockingExitUtility(float DistanceToExit, float PlayerDistanceToExit)
 {
-	float DistanceToExitScore = 1 - FMath::Clamp(DistanceToExit / 10000.0f, 0.0f, 1.0f);
-	float PlayerThreatScore = 1.0f - FMath::Clamp(PlayerDistanceToExit / 10000.0f, 0.0f, 1.0f);
-	float Score = DistanceToExitScore * 0.3f + PlayerThreatScore * 0.7f;
+	float DistanceToExitScore = 1 - FMath::Clamp(DistanceToExit / 5000.0f, 0.0f, 1.0f);
+	float PlayerThreatScore = 1.0f - FMath::Clamp(PlayerDistanceToExit / 5000.0f, 0.0f, 1.0f);
+	float Score = DistanceToExitScore * 0.7f + PlayerThreatScore * 0.3f;
 	return Score;
 }
 

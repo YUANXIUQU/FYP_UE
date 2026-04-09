@@ -47,7 +47,7 @@ public:
 	static float CalculateAttackUtility(float DistanceToPlayer, float Health, float seePlayer, UCurveFloat* DistanceCurve);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateHidingUtility(float DistanceToPlayer, float Health, float seePlayerfloat ,float TimeSinceLastDamage);
+	static float CalculateHidingUtility(float DistanceToPlayer, float Health, float TimeSinceLastDamage);
 
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateRetreatUtility(float DistanceToPlayer, float Health, float seePlayer);

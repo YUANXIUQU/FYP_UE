@@ -97,43 +97,43 @@ float UUtilityFunctionLibrary::CalculateRandomSearchUtility(float seePlayer, flo
 EAction UUtilityFunctionLibrary::SelectAction(const TArray<FActionScore>& score, EAction currenAction)
 {
 	//Select random action from 2 actions with highest score////////////////////////////
-	TArray<FActionScore> Sorted = score;
+	/*TArray<FActionScore> Sorted = score;
 
 	Sorted.Sort([](const FActionScore& A, const FActionScore& B) {return A.Score > B.Score; });
 	int32 TopN = FMath::Min(2, Sorted.Num());
 	int32 Index = FMath::RandRange(0, TopN - 1);
-	return Sorted[Index].Action;
+	return Sorted[Index].Action;*/
 
 	//Select Highest Score////////////////////////////////////////////////////
-	//if (score.Num() == 0)
-	//{
-	//	return EAction::Attack;
-	//}
+	if (score.Num() == 0)
+	{
+		return EAction::Attack;
+	}
 
-	//float max = -FLT_MAX; 
-	//FActionScore best;
-	//float currentActionScore = 0.0f;
-	//for (auto& it : score)
-	//{
-	//	if (it.Score > max)
-	//	{
-	//		max = it.Score;
-	//		best = it;
-	//	}
-	//	if (it.Action == currenAction)
-	//	{
-	//		currentActionScore = it.Score;
-	//	}
-	//}
-	////if current action is already the best,then select it
-	//if (best.Action == currenAction)
-	//{
-	//	return currenAction;
-	//}
-	///*if (best.Score > currentActionScore)
-	//{
-	//	currenAction = best.Action;
-	//}*/
-	//currenAction = best.Action;
-	//return currenAction;
+	float max = -FLT_MAX; 
+	FActionScore best;
+	float currentActionScore = 0.0f;
+	for (auto& it : score)
+	{
+		if (it.Score > max)
+		{
+			max = it.Score;
+			best = it;
+		}
+		if (it.Action == currenAction)
+		{
+			currentActionScore = it.Score;
+		}
+	}
+	//if current action is already the best,then select it
+	if (best.Action == currenAction)
+	{
+		return currenAction;
+	}
+	/*if (best.Score > currentActionScore)
+	{
+		currenAction = best.Action;
+	}*/
+	currenAction = best.Action;
+	return currenAction;
 }

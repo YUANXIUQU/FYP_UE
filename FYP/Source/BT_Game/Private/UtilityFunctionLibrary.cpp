@@ -97,12 +97,12 @@ float UUtilityFunctionLibrary::CalculateRandomSearchUtility(float seePlayer, flo
 EAction UUtilityFunctionLibrary::SelectAction(const TArray<FActionScore>& score, EAction currenAction)
 {
 	//Select random action from 2 actions with highest score////////////////////////////
-	/*TArray<FActionScore> Sorted = score;
+	TArray<FActionScore> Sorted = score;
 
 	Sorted.Sort([](const FActionScore& A, const FActionScore& B) {return A.Score > B.Score; });
 	int32 TopN = FMath::Min(2, Sorted.Num());
 	int32 Index = FMath::RandRange(0, TopN - 1);
-	return Sorted[Index].Action;*/
+	return Sorted[Index].Action;
 
 	//Select Highest Score////////////////////////////////////////////////////
 	if (score.Num() == 0)

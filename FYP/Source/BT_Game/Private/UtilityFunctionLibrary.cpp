@@ -105,35 +105,35 @@ EAction UUtilityFunctionLibrary::SelectAction(const TArray<FActionScore>& score,
 	return Sorted[Index].Action;
 
 	//Select Highest Score////////////////////////////////////////////////////
-	if (score.Num() == 0)
-	{
-		return EAction::Attack;
-	}
+	//if (score.Num() == 0)
+	//{
+	//	return EAction::Attack;
+	//}
 
-	float max = -FLT_MAX; 
-	FActionScore best;
-	float currentActionScore = 0.0f;
-	for (auto& it : score)
-	{
-		if (it.Score > max)
-		{
-			max = it.Score;
-			best = it;
-		}
-		if (it.Action == currenAction)
-		{
-			currentActionScore = it.Score;
-		}
-	}
-	//if current action is already the best,then select it
-	if (best.Action == currenAction)
-	{
-		return currenAction;
-	}
-	/*if (best.Score > currentActionScore)
-	{
-		currenAction = best.Action;
-	}*/
-	currenAction = best.Action;
-	return currenAction;
+	//float max = -FLT_MAX; 
+	//FActionScore best;
+	//float currentActionScore = 0.0f;
+	//for (auto& it : score)
+	//{
+	//	if (it.Score > max)
+	//	{
+	//		max = it.Score;
+	//		best = it;
+	//	}
+	//	if (it.Action == currenAction)
+	//	{
+	//		currentActionScore = it.Score;
+	//	}
+	//}
+	////if current action is already the best,then select it
+	//if (best.Action == currenAction)
+	//{
+	//	return currenAction;
+	//}
+	///*if (best.Score > currentActionScore)
+	//{
+	//	currenAction = best.Action;
+	//}*/
+	//currenAction = best.Action;
+	//return currenAction;
 }

@@ -13,12 +13,12 @@
 UENUM(BlueprintType)
 enum class EAction : uint8
 {
-	Attack,
-	Hiding,
-	Retreating,
-	Chasing,
-	BlockingExit,
-	RandomSearching
+	Attack, // Engage the player
+	Hiding, // Take cover
+	Retreating,  // Run away
+	Chasing,  // Follow the player
+	BlockingExit, // Block the exit
+	RandomSearching // Search
 };
 
 USTRUCT(BlueprintType)
@@ -26,10 +26,10 @@ struct FActionScore
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite)
-	EAction Action;
+	EAction Action; // The action type
 
 	UPROPERTY(BlueprintReadWrite)
-	float Score;
+	float Score; // Utility score for this action
 
 };
 
@@ -46,24 +46,27 @@ public:
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateAttackUtility(float DistanceToPlayer, float Health, float seePlayer, UCurveFloat* DistanceCurve);
 
+	//Hideing
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateHidingUtility(float DistanceToPlayer, float Health, float TimeSinceLastDamage);
 
+	//Retreating
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateRetreatUtility(float DistanceToPlayer, float Health, float seePlayer);
 
+	//Chasing
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateChasingUtility(float Health, float seePlayer,float TimeSinceSeenPlayer);
 
+	//BlockingExit
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateBlockingExitUtility(float DistanceToExit, float PlayerDistanceToExit);
 
-	UFUNCTION(BlueprintPure, Category = "AI|Utility")
-	static float CalculateFollowingVIPUtility(float DistanceToPlayer, float DistanceToVIP);
-
+	//RandomSearch
 	UFUNCTION(BlueprintPure, Category = "AI|Utility")
 	static float CalculateRandomSearchUtility(float seePlayer,float TimeSinceSeenPlayer, float Health);
 
+	//Selecting Best Action
 	UFUNCTION(BlueprintPure, Category = "AI|UtilitySelector")
 	static EAction SelectAction(const TArray<FActionScore>& score, EAction currenAction);
 
